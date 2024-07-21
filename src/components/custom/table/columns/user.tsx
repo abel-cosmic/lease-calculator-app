@@ -16,6 +16,7 @@ import { ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Checkbox } from "@/components/ui/checkbox";
+import { UserAction } from "../action/user";
 
 export const columns: ColumnDef<Payment>[] = [
   {
@@ -85,43 +86,7 @@ export const columns: ColumnDef<Payment>[] = [
     id: "actions",
     header: () => <div className="text-left">Actions</div>,
     cell: ({ row }) => {
-      const user = row.original;
-      const router = useRouter();
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4 " />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => router.push(`/dashboard/users/view/${user.id}`)}
-            >
-              <Eye className="mr-2 h-4 w-4 text-blue-500" />
-              View
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => router.push(`/dashboard/users/edit/${user.id}`)}
-            >
-              <Edit className="mr-2 h-4 w-4 text-green-500" />
-              Edit
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => {
-                toast.success("deleted successfully");
-              }}
-            >
-              <Trash className="mr-2 h-4 w-4 text-red-500" />
-              Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
+      return <UserAction row={row} />;
     },
   },
 ];
