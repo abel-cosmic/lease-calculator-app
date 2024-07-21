@@ -13,3 +13,21 @@ interface Lease {
   securityDeposit: number;
   additionalCharges: number;
 }
+
+interface PartialUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+}
+
+interface PartialLease {
+  id: string;
+  monthlyRentAmount: number;
+}
+
+interface ManageLease {
+  user: PartialUser;
+  lease: PartialLease;
+  assignmentDate: Date;
+  status: "active" | "inactive" | "terminated";
+}
