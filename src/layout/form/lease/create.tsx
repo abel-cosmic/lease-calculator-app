@@ -15,19 +15,18 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { FormSchema } from "@/util/schema/form/user";
 import toast from "react-hot-toast";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { LeaseFormSchema } from "@/util/schema/form/lease";
 
-const EditUser = ({ userData }: { userData: z.infer<typeof FormSchema> }) => {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: userData,
+const CreateLease = () => {
+  const form = useForm<z.infer<typeof LeaseFormSchema>>({
+    resolver: zodResolver(LeaseFormSchema),
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    // Perform the update operation here
-    toast.success("User updated successfully!");
+  function onSubmit(data: z.infer<typeof LeaseFormSchema>) {
+    toast.success("Successfully created lease!");
+    console.log(data);
   }
 
   return (
@@ -39,91 +38,105 @@ const EditUser = ({ userData }: { userData: z.infer<typeof FormSchema> }) => {
         >
           <FormField
             control={form.control}
-            name="firstName"
+            name="leaseStartDate"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel>First Name</FormLabel>
+                <FormLabel>Lease Start Date</FormLabel>
                 <FormControl>
-                  <Input placeholder="John" {...field} className="w-full" />
+                  <Input type="date" {...field} className="w-full" />
                 </FormControl>
-                <FormDescription>This is your first name.</FormDescription>
+                <FormDescription>
+                  Enter the start date of the lease.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
           <FormField
             control={form.control}
-            name="lastName"
+            name="leaseEndDate"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel>Last Name</FormLabel>
+                <FormLabel>Lease End Date</FormLabel>
                 <FormControl>
-                  <Input placeholder="Doe" {...field} className="w-full" />
+                  <Input type="date" {...field} className="w-full" />
                 </FormControl>
-                <FormDescription>This is your last name.</FormDescription>
+                <FormDescription>
+                  Enter the end date of the lease.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
           <FormField
             control={form.control}
-            name="email"
+            name="monthlyRentAmount"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel>Email</FormLabel>
+                <FormLabel>Monthly Rent Amount</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="john.doe@example.com"
-                    {...field}
-                    type="email"
-                    className="w-full"
-                  />
-                </FormControl>
-                <FormDescription>This is your email address.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="phoneNumber"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel>Phone Number</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="123-456-7890"
                     type="number"
+                    step="0.01"
                     {...field}
                     className="w-full"
                   />
                 </FormControl>
-                <FormDescription>This is your phone number.</FormDescription>
+                <FormDescription>
+                  Enter the monthly rent amount.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
           <FormField
             control={form.control}
-            name="address"
+            name="securityDeposit"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel>Address</FormLabel>
+                <FormLabel>Security Deposit</FormLabel>
                 <FormControl>
-                  <Input placeholder="123 Main St" {...field} />
+                  <Input
+                    type="number"
+                    step="0.01"
+                    {...field}
+                    className="w-full"
+                  />
                 </FormControl>
-                <FormDescription>This is your address.</FormDescription>
+                <FormDescription>
+                  Enter the security deposit amount.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="additionalCharges"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Additional Charges</FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    step="0.01"
+                    {...field}
+                    className="w-full"
+                  />
+                </FormControl>
+                <FormDescription>
+                  Enter any additional charges (e.g., maintenance fees).
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
           <Button type="submit" className="w-full">
-            Update
+            Submit
           </Button>
         </form>
       </Form>
     </ScrollArea>
   );
 };
-
-export default EditUser;
+export default CreateLease;
