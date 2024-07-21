@@ -57,9 +57,8 @@ export function SidebarSheet() {
                 const IconComponent = item.icon;
                 const isActive = pathname === item.href;
                 return (
-                  <SheetClose asChild>
+                  <SheetClose asChild key={index}>
                     <Link
-                      key={index}
                       href={item.href}
                       className={`flex items-center gap-3 p-2 rounded-lg hover:bg-muted ${
                         isActive
