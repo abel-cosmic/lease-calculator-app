@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Bell } from "lucide-react";
+import { Bell, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import sidebarItems from "@/util/objects/side-bar";
@@ -8,19 +8,17 @@ import Image from "next/image";
 import logo from "/public/logo-blue.png";
 import darklogo from "/public/logo-white.png";
 import { useTheme } from "next-themes";
-import { usePathname } from "next/navigation"; // Import usePathname
+import { usePathname } from "next/navigation";
 
 export function Sidebar() {
   const { theme } = useTheme();
-  const pathname = usePathname(); // Get the current pathname
-
-  // Determine which logo to use based on the current theme
+  const pathname = usePathname();
   const currentLogo = theme === "dark" ? darklogo : logo;
 
   return (
     <div className="hidden border-r max-w-xs bg-muted/40 md:block">
       <div className="flex h-full max-h-[90vh] flex-col gap-2">
-        <div className="flex h-14 gap-4 items-center border-b px-4 lg:h-[60px] lg:px-6">
+        <div className="flex h-14 gap-4 items-center border-b px-4 py-10 lg:h-[60px] lg:px-6">
           <Link href="/" className="flex items-center gap-2 font-semibold">
             <Image src={currentLogo} alt="Logo" width={60} height={60} />
             <h1 className="text-sm font-bold">Lease Calculator</h1>
@@ -30,7 +28,7 @@ export function Sidebar() {
             <span className="sr-only">Toggle notifications</span>
           </Button>
         </div>
-        <div className="flex  flex-col justify-between items-start h-full">
+        <div className="flex  flex-col justify-between items-start h-full pt-4">
           <nav className="grid items-start px-2 text-sm font-medium lg:px-4 w-full">
             {sidebarItems.map(
               (
@@ -42,9 +40,7 @@ export function Sidebar() {
                 },
                 index
               ) => {
-                const IconComponent = item.icon; // Assign the icon component
-
-                // Check if the current pathname matches the item's href
+                const IconComponent = item.icon;
                 const isActive = pathname === item.href;
 
                 return (
@@ -69,8 +65,7 @@ export function Sidebar() {
               }
             )}
           </nav>
-          <div className="grid items-start px-2 text-sm font-medium lg:px-4 w-full">
-            {/* Check if the current pathname matches the settings href */}
+          <div className="grid items-start px-2s text-sm font-medium lg:px-4 w-full">
             <Link
               href="/dashboard/setting"
               className={`flex items-center gap-3 rounded-lg px-3 py-4 transition-all ${
@@ -79,7 +74,7 @@ export function Sidebar() {
                   : "text-muted-foreground hover:text-primary"
               }`}
             >
-              <Bell className="h-4 w-4" />
+              <Settings className="h-4 w-4" />
               Settings
             </Link>
           </div>
