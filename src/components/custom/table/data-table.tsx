@@ -42,11 +42,11 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <Card className="flex flex-col gap-4 p-8 items-end justify-end w-fit">
-      <CardContent className="w-full p-0">
-        <div className="flex flex-row items-end gap-4 justify-end w-fit">
+    <Card className="flex flex-col gap-4 p-8 items-end justify-end w-full">
+      <CardContent className="flex flex-col gap-4 md:p-8 items-end justify-end  max-md:p-0 mx-md:justify-between w-full max-md:pr-20 max-md:items-start">
+        <div className="flex flex-row items-end gap-4 justify-end w-fit mb-4">
           <Dialog>
-            <DialogTrigger>
+            <DialogTrigger className="self-end">
               <Button>Create</Button>
             </DialogTrigger>
             <DialogContent>{DialogContentComponent}</DialogContent>

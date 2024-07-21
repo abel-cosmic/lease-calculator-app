@@ -4,3 +4,11 @@ interface Payment {
   status: "pending" | "processing" | "success" | "failed";
   email: string;
 }
+
+interface User {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+}

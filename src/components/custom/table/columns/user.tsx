@@ -1,24 +1,13 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal, Eye, Edit, Trash } from "lucide-react";
+
 import { ReactNode } from "react";
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
 import { Checkbox } from "@/components/ui/checkbox";
 import { UserAction } from "../action/user";
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<User>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -41,6 +30,20 @@ export const columns: ColumnDef<Payment>[] = [
     enableHiding: false,
   },
   {
+    accessorKey: "firstName",
+    header: () => <div className="text-left">First Name</div>,
+    cell: ({ row }) => (
+      <div className="text-left font-medium">{row.getValue("firstName")}</div>
+    ),
+  },
+  {
+    accessorKey: "lastName",
+    header: () => <div className="text-left">Last Name</div>,
+    cell: ({ row }) => (
+      <div className="text-left font-medium">{row.getValue("lastName")}</div>
+    ),
+  },
+  {
     accessorKey: "email",
     header: () => <div className="text-left">Email</div>,
     cell: ({ row }) => (
@@ -48,39 +51,11 @@ export const columns: ColumnDef<Payment>[] = [
     ),
   },
   {
-    accessorKey: "amount",
-    header: () => <div className="text-left">Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount);
-
-      return <div className="text-left font-medium">{formatted}</div>;
-    },
-  },
-  {
-    accessorKey: "status",
-    header: () => <div className="text-left">Status</div>,
-    cell: ({ row }) => {
-      const status = row.getValue("status");
-      return (
-        <Badge
-          className={`text-right font-medium ${
-            status === "pending"
-              ? "bg-yellow-500 text-yellow-100"
-              : status === "processing"
-              ? "bg-blue-500 text-blue-100"
-              : status === "success"
-              ? "bg-green-500 text-green-100"
-              : "bg-red-500 text-red-100"
-          }`}
-        >
-          {status as ReactNode}
-        </Badge>
-      );
-    },
+    accessorKey: "phone",
+    header: () => <div className="text-left">Phone Number</div>,
+    cell: ({ row }) => (
+      <div className="text-left font-medium">{row.getValue("phone")}</div>
+    ),
   },
   {
     id: "actions",
