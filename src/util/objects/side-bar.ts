@@ -1,10 +1,15 @@
-import { Home, Package, ShoppingCart, Users } from "lucide-react";
+import { Headset, Home, Package, ShoppingCart, Users } from "lucide-react";
 
 const sidebarItems = [
   {
     href: "/dashboard",
     label: "Dashboard",
     icon: Home,
+  },
+  {
+    href: "/dashboard/users",
+    label: "User",
+    icon: Users,
   },
   {
     href: "/dashboard/lease",
@@ -20,7 +25,7 @@ const sidebarItems = [
   {
     href: "/dashboard/support",
     label: "Support",
-    icon: Users,
+    icon: Headset,
   },
 ];
 
