@@ -17,9 +17,12 @@ export function Sidebar() {
 
   return (
     <div className="hidden border-r max-w-xs bg-muted/40 md:block">
-      <div className="flex h-full max-h-[90vh] flex-col gap-2">
+      <div className="flex h-full max-h-[85vh] flex-col gap-2">
         <div className="flex h-14 gap-4 items-center border-b px-4 py-10 lg:h-[60px] lg:px-6">
-          <Link href="/" className="flex items-center gap-2 font-semibold">
+          <Link
+            href="/dashboard"
+            className="flex items-center gap-2 font-semibold"
+          >
             <Image src={currentLogo} alt="Logo" width={60} height={60} />
             <h1 className="text-sm font-bold">Lease Calculator</h1>
           </Link>
@@ -47,7 +50,7 @@ export function Sidebar() {
                   <Link
                     key={index}
                     href={item.href}
-                    className={`flex items-center gap-3 rounded-lg px-3 py-4 transition-all ${
+                    className={`flex items-center gap-3 rounded-lg px-3 py-4 transition-all ease-linear ${
                       isActive
                         ? "dark:bg-muted dark:text-primary bg-primary text-background"
                         : "text-muted-foreground hover:text-primary"
@@ -68,7 +71,7 @@ export function Sidebar() {
           <div className="grid items-start px-2s text-sm font-medium lg:px-4 w-full">
             <Link
               href="/dashboard/setting"
-              className={`flex items-center gap-3 rounded-lg px-3 py-4 transition-all ${
+              className={`flex items-center gap-3 rounded-lg px-3 py-4 transition-all ease-linear ${
                 pathname === "/dashboard/setting"
                   ? "dark:bg-muted dark:text-primary bg-primary text-background"
                   : "text-muted-foreground hover:text-primary"
