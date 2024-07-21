@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 
 export function LoginForm() {
   return (
-    <Card className="w-full max-w-sm">
+    <Card className="w-full md:max-w-sm">
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
         <CardDescription>
