@@ -1,4 +1,4 @@
-import { Home, LineChart, Package, ShoppingCart, Users } from "lucide-react";
+import { Home, Package, ShoppingCart, Users } from "lucide-react";
 
 const sidebarItems = [
   {
@@ -8,25 +8,20 @@ const sidebarItems = [
   },
   {
     href: "/dashboard/lease",
-    label: "Orders",
+    label: "Lease",
     icon: ShoppingCart,
-    // badge: 6,
   },
   {
     href: "/dashboard/manage",
-    label: "Products",
+    label: "Manage",
     icon: Package,
     active: true,
   },
   {
     href: "/dashboard/support",
-    label: "Customers",
+    label: "Support",
     icon: Users,
   },
-  {
-    href: "/dashboard/setting",
-    label: "Analytics",
-    icon: LineChart,
-  },
 ];
+
 export default sidebarItems;
