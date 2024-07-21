@@ -7,6 +7,7 @@ import SlateTable from "@/components/custom/table/slate";
 import { Badge } from "@/components/ui/badge";
 import BarChartComponent from "@/components/custom/charts/bar";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import Breadcrumbs from "@/components/custom/nav/bread-crumbs";
 
 export default function Page() {
   const data = [
@@ -123,7 +124,7 @@ export default function Page() {
 
   return (
     <aside className="flex flex-col w-full h-full gap-6 pt-4 px-8 max-md:pt-32">
-      <h1 className="text-4xl w-full px-8 font-bold">Dashboard</h1>
+      <Breadcrumbs path="Dashboard" />
       <ScrollArea className="flex flex-col h-full gap-6 w-full py-4">
         <ScrollBar orientation="horizontal" />
         <div className="flex flex-row gap-6 w-full">

@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/util/provider/theme";
 import Footer from "@/layout/footer";
 import { Toaster } from "react-hot-toast";
+import { ReactQueryClientProvider } from "@/util/provider/react-query";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -22,18 +23,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
-      >
-        <body className={plusJakartaSans.className}>
-          {children}
-          <Footer />
-        </body>
-      </ThemeProvider>
-      <Toaster position="bottom-right" reverseOrder={false} />
+      <ReactQueryClientProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <body className={plusJakartaSans.className}>
+            {children}
+            <Footer />
+          </body>
+        </ThemeProvider>
+        <Toaster position="bottom-right" reverseOrder={false} />
+      </ReactQueryClientProvider>
     </html>
   );
 }
