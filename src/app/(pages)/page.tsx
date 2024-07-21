@@ -8,8 +8,6 @@ import SignUpForm from "@/layout/auth/sign-up";
 
 export default function SignUp() {
   const { theme } = useTheme();
-
-  // Determine which logo to use based on the current theme
   const currentLogo = theme === "dark" ? darklogo : logo;
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center px-4 w-full">

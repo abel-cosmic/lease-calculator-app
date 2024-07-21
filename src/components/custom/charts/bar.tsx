@@ -21,7 +21,7 @@ const BarChartComponent = ({ data, config }) => {
   const { desktop, mobile } = config;
 
   return (
-    <Card>
+    <Card className="max-md:w-[90%]">
       <CardContent className="p-4">
         <ChartContainer config={config} className="h-full w-full">
           <BarChart data={data}>
