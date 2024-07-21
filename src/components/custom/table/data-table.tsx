@@ -53,8 +53,8 @@ export function DataTable<TData, TValue>({
 
         <DataTableViewOptions table={table} />
       </div>
-      <div className="rounded-md border w-screen overflow-hidden h-full">
-        <Table className="">
+      <div className="rounded-md border w-full overflow-hidden h-full">
+        <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
