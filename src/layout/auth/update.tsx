@@ -21,7 +21,7 @@ export function SecurityTabs() {
       <TabsContent value="account" className="flex flex-col gap-6">
         <Label>Account</Label>
         <Label>
-          Make changes to your account here. Click save when you're done.
+          Make changes to your account here. Click save when you&apos;re done.
         </Label>
         <div className="space-y-1">
           <Label htmlFor="name">Name</Label>
@@ -36,7 +36,7 @@ export function SecurityTabs() {
       <TabsContent value="password" className="flex flex-col gap-6">
         <Label>Password</Label>
         <Label>
-          Change your password here. After saving, you'll be logged out.
+          Change your password here. After saving, you&apos;ll be logged out.
         </Label>
         <div className="space-y-1">
           <Label htmlFor="current">Current password</Label>
