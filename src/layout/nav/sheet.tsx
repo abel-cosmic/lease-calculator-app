@@ -60,7 +60,7 @@ export function SidebarSheet() {
                   <SheetClose asChild key={index}>
                     <Link
                       href={item.href}
-                      className={`flex items-center gap-3 p-2 rounded-lg hover:bg-muted transition-all ease-linear ${
+                      className={`flex items-center gap-3 p-2 rounded-lg  transition-all ease-linear ${
                         isActive
                           ? "dark:bg-muted dark:text-primary bg-primary text-background"
                           : "text-muted-foreground hover:text-primary"

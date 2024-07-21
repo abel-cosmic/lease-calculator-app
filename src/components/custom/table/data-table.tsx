@@ -21,6 +21,7 @@ import { Card } from "@/components/ui/card";
 import { DataTableViewOptions } from "./toogle";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -52,8 +53,8 @@ export function DataTable<TData, TValue>({
 
         <DataTableViewOptions table={table} />
       </div>
-      <div className="rounded-md border w-full">
-        <Table>
+      <div className="rounded-md border w-screen overflow-hidden h-full">
+        <Table className="">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
