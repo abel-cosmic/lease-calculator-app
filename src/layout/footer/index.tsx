@@ -59,9 +59,6 @@ const Footer = () => {
         <div className="max-md:hidden">
           <ModeToggle />
         </div>
-        <div className="md:hidden fixed top-10 right-10">
-          <ModeToggle />
-        </div>
       </footer>
     </div>
   );

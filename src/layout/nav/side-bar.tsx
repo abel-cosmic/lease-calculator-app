@@ -47,7 +47,7 @@ export function Sidebar() {
                   <Link
                     key={index}
                     href={item.href}
-                    className={`flex items-center gap-3 rounded-lg px-3 py-4 transition-all ${
+                    className={`flex items-center gap-3 rounded-lg px-3 py-4 transition-all ease-linear ${
                       isActive
                         ? "dark:bg-muted dark:text-primary bg-primary text-background"
                         : "text-muted-foreground hover:text-primary"
@@ -68,7 +68,7 @@ export function Sidebar() {
           <div className="grid items-start px-2s text-sm font-medium lg:px-4 w-full">
             <Link
               href="/dashboard/setting"
-              className={`flex items-center gap-3 rounded-lg px-3 py-4 transition-all ${
+              className={`flex items-center gap-3 rounded-lg px-3 py-4 transition-all ease-linear ${
                 pathname === "/dashboard/setting"
                   ? "dark:bg-muted dark:text-primary bg-primary text-background"
                   : "text-muted-foreground hover:text-primary"

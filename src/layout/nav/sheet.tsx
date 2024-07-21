@@ -22,7 +22,7 @@ export function SidebarSheet() {
   const pathname = usePathname();
   const currentLogo = theme === "dark" ? darklogo : logo;
   return (
-    <div className="fixed top-10 left-4 z-50 md:hidden">
+    <div className=" md:hidden">
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline" size="icon">
@@ -60,7 +60,7 @@ export function SidebarSheet() {
                   <SheetClose asChild key={index}>
                     <Link
                       href={item.href}
-                      className={`flex items-center gap-3 p-2 rounded-lg hover:bg-muted ${
+                      className={`flex items-center gap-3 p-2 rounded-lg hover:bg-muted transition-all ease-linear ${
                         isActive
                           ? "dark:bg-muted dark:text-primary bg-primary text-background"
                           : "text-muted-foreground hover:text-primary"
@@ -83,7 +83,7 @@ export function SidebarSheet() {
             <SheetClose asChild>
               <Link
                 href="/dashboard/setting"
-                className={`flex items-center gap-3 rounded-lg px-3 py-4 transition-all ${
+                className={`flex items-center gap-3 rounded-lg px-3 py-4 transition-all ease-linear ${
                   pathname === "/dashboard/setting"
                     ? "dark:bg-muted dark:text-primary bg-primary text-background"
                     : "text-muted-foreground hover:text-primary"

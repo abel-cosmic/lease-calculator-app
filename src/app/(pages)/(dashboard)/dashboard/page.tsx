@@ -6,6 +6,7 @@ import OverviewCard from "@/components/custom/card/overview";
 import SlateTable from "@/components/custom/table/slate";
 import { Badge } from "@/components/ui/badge";
 import BarChartComponent from "@/components/custom/charts/bar";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 export default function Page() {
   const data = [
@@ -121,14 +122,18 @@ export default function Page() {
   ];
 
   return (
-    <aside className="flex flex-col w-full gap-4">
+    <aside className="flex flex-col w-full gap-4  px-8 py-4 max-md:pt-32">
       <h1 className="text-4xl w-full px-8 font-bold">Dashboard</h1>
-      <div className="flex flex-row w-full gap-4">
-        {cardData.map((card, index) => (
-          <OverviewCard key={index} {...card} />
-        ))}
-      </div>
-      <div className="flex flex-row gap-4 w-full">
+      <ScrollArea className="flex flex-col h-full gap-4 w-full py-4">
+        <ScrollBar orientation="horizontal" />
+        <div className="flex flex-row gap-4 w-full">
+          {cardData.map((card, index) => (
+            <OverviewCard key={index} {...card} />
+          ))}
+        </div>
+      </ScrollArea>
+
+      <div className="flex flex-col md:flex-row gap-4 w-full ">
         <BarChartComponent data={data} config={config} />
         <SlateTable headers={headers} data={tableData} />
       </div>
