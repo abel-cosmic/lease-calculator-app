@@ -17,9 +17,12 @@ export function Sidebar() {
 
   return (
     <div className="hidden border-r max-w-xs bg-muted/40 md:block">
-      <div className="flex h-full max-h-[90vh] flex-col gap-2">
+      <div className="flex h-full max-h-[85vh] flex-col gap-2">
         <div className="flex h-14 gap-4 items-center border-b px-4 py-10 lg:h-[60px] lg:px-6">
-          <Link href="/" className="flex items-center gap-2 font-semibold">
+          <Link
+            href="/dashboard"
+            className="flex items-center gap-2 font-semibold"
+          >
             <Image src={currentLogo} alt="Logo" width={60} height={60} />
             <h1 className="text-sm font-bold">Lease Calculator</h1>
           </Link>

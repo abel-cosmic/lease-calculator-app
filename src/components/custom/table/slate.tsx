@@ -10,7 +10,7 @@ import {
 
 const SlateTable = ({ headers, data }) => {
   return (
-    <Table className="w-full h-fit">
+    <Table className="w-full h-full">
       <TableHeader>
         <TableRow>
           {headers.map((header, index) => (

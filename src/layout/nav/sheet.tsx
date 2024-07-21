@@ -37,7 +37,7 @@ export function SidebarSheet() {
           <div className="flex flex-col gap-4 py-8">
             <SheetHeader className="flex flex-row gap-2  items-center justify-center border-b  py-4">
               <Link
-                href="/"
+                href="/dashboard"
                 className="flex items-end justify-centers font-semibold"
               >
                 <Image src={currentLogo} alt="Logo" width={60} height={60} />

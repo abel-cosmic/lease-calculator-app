@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/util/provider/theme";
 import Footer from "@/layout/footer";
+import { Toaster } from "react-hot-toast";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -32,6 +33,7 @@ export default function RootLayout({
           <Footer />
         </body>
       </ThemeProvider>
+      <Toaster position="bottom-right" reverseOrder={false} />
     </html>
   );
 }

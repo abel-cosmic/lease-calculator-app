@@ -1,4 +1,5 @@
-import { SidebarSheet } from "@/layout/nav/sheet";
+"use client";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sidebar } from "@/layout/nav/side-bar";
 import TopNav from "@/layout/nav/top";
 
@@ -10,9 +11,9 @@ export default function RootLayout({
   return (
     <div className="flex flex-row gap-0">
       <Sidebar />
-      <section className="flex flex-col gap-4 pb-10 w-full ">
+      <section className="flex flex-col gap-2 pb-10 w-full h-screen ">
         <TopNav />
-        <div>{children}</div>
+        <ScrollArea className="h-fit w-full">{children}</ScrollArea>
       </section>
     </div>
   );
