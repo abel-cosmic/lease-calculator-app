@@ -123,7 +123,7 @@ export default function Page() {
   ];
 
   return (
-    <aside className="flex flex-col w-full h-full gap-6 pt-4 px-8 max-md:pt-32">
+    <aside className="flex flex-col w-full h-full gap-6 pt-4 max-md:pt-32">
       <Breadcrumbs path="Dashboard" />
       <ScrollArea className="flex flex-col h-full gap-6 max-md:w-96 w-full py-4">
         <ScrollBar orientation="horizontal" />

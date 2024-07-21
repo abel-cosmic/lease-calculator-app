@@ -8,7 +8,7 @@ import leases from "@/util/objects/table/lease";
 
 export default function Page() {
   return (
-    <aside className="flex flex-col w-full gap-4 px-8 max-md:pt-32 items-start">
+    <aside className="flex flex-col w-full gap-4 max-md:pt-32 items-start">
       <Breadcrumbs path="Dashboard/Lease" />
       <DataTable
         columns={leaseColumns}

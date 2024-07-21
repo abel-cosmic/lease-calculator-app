@@ -8,7 +8,7 @@ import manageLeases from "@/util/objects/table/manage";
 
 export default function Page() {
   return (
-    <aside className="flex flex-col w-full gap-4 px-8 max-md:pt-32">
+    <aside className="flex flex-col w-full gap-4 max-md:pt-32">
       <Breadcrumbs path="Dashboard/Manage" />
       <DataTable
         columns={manageColumns}
