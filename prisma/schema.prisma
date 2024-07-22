@@ -5,54 +5,99 @@ generator client {
 datasource db {
     provider  = "postgresql"
     url       = env("POSTGRES_PRISMA_URL")
-    directUrl = env("POSTGRES_URL_NON_POOLING")
+    directUrl = env("POSTGRES_PRISMA_URL_NON_POOLING")
+}
+
+model Account {
+    id                String  @id @default(cuid())
+    adminId           String
+    type              String
+    provider          String
+    providerAccountId String
+    refresh_token     String? @db.Text
+    access_token      String? @db.Text
+    expires_at        Int?
+    token_type        String?
+    scope             String?
+    id_token          String? @db.Text
+    session_state     String?
+    user              Admin   @relation(fields: [adminId], references: [id], onDelete: Cascade)
+
+    @@unique([provider, providerAccountId])
+}
+
+model Session {
+    id           String   @id @default(cuid())
+    sessionToken String   @unique @map("session_token")
+    adminId      String   @map("admin_id")
+    expires      DateTime
+    user         Admin    @relation(fields: [adminId], references: [id], onDelete: Cascade)
+
+    @@map("sessions")
+}
+
+model VerificationToken {
+    identifier String
+    token      String   @unique
+    expires    DateTime
+
+    @@unique([identifier, token])
+    @@map("verificationtokens")
 }
 
 model Admin {
-    id        Int      @id @default(autoincrement())
-    email     String   @unique
+    id        String    @id @default(cuid())
+    firstName String
+    lastName  String
+    email     String    @unique
     password  String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @default(now())
+    createdAt DateTime  @default(now()) @map("created_at")
+    updatedAt DateTime  @updatedAt @map("updated_at")
     users     User[]
+    accounts  Account[]
+    sessions  Session[]
+
+    @@map("admins")
 }
 
 model User {
-    id           Int           @id @default(autoincrement())
+    id           String        @id @default(cuid())
     firstName    String
     lastName     String
     email        String        @unique
     phone        String
-    createdAt    DateTime      @default(now())
-    updatedAt    DateTime      @default(now())
-    adminId      Int
+    createdAt    DateTime      @default(now()) @map("created_at")
+    updatedAt    DateTime      @updatedAt @map("updated_at")
+    adminId      String
     admin        Admin         @relation(fields: [adminId], references: [id])
     leases       Lease[]
     manageLeases ManageLease[]
 }
 
 model Lease {
-    id                Int           @id @default(autoincrement())
+    id                String        @id @default(cuid())
     leaseStartDate    String
     leaseEndDate      String
     monthlyRentAmount Int
     securityDeposit   Int
     additionalCharges Int
-    createdAt         DateTime      @default(now())
-    updatedAt         DateTime      @default(now())
-    userId            Int
+    createdAt         DateTime      @default(now()) @map("created_at")
+    updatedAt         DateTime      @updatedAt @map("updated_at")
+    userId            String
     user              User          @relation(fields: [userId], references: [id])
     manageLeases      ManageLease[]
 }
 
 model ManageLease {
-    id             Int      @id @default(autoincrement())
-    userId         Int
-    leaseId        Int
+    id             String   @id @default(cuid())
+    userId         String
+    leaseId        String
     assignmentDate DateTime
     status         String   @default("active")
     user           User     @relation(fields: [userId], references: [id])
     lease          Lease    @relation(fields: [leaseId], references: [id])
+    createdAt      DateTime @default(now()) @map("created_at")
+    updatedAt      DateTime @updatedAt @map("updated_at")
 
     @@unique([userId, leaseId])
 }
