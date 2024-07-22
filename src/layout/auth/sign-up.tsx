@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -136,7 +136,11 @@ const SignUpForm = () => {
               />
             </div>
             <Button type="submit" className="w-full" disabled={isPending}>
-              {isPending ? "Creating..." : "Create an account"}
+              {isPending ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                "Create an account"
+              )}
             </Button>
           </form>
           <div className="mt-4 text-center text-sm">
