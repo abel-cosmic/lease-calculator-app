@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import toast from "react-hot-toast";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { LeaseFormSchema } from "@/util/schema/form/lease";
+import { LeaseFormSchema } from "@/util/schema/lease";
 
 const CreateLease = () => {
   const form = useForm<z.infer<typeof LeaseFormSchema>>({

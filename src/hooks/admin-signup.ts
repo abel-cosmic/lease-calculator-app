@@ -1,6 +1,6 @@
 import axios from "@/lib/axios";
 import { z } from "zod";
-import { SignUpSchema } from "@/util/schema/form/sign-up";
+import { SignUpSchema } from "@/util/schema/sign-up";
 import { useMutation } from "@tanstack/react-query";
 
 interface SignUpData extends z.infer<typeof SignUpSchema> {}

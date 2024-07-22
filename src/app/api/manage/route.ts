@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { getServerSession } from "next-auth/next";
+import { ManageLeaseSchema } from "@/util/schema/manage";
 import { options } from "@/lib/db/auth";
-import { LeaseSchema } from "@/util/schema/lease";
 
 const prisma = new PrismaClient();
 
@@ -13,14 +13,14 @@ export async function GET(request: Request) {
     if (!session) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-
-    const leases = await prisma.lease.findMany({
+    const manageLeases = await prisma.manageLease.findMany({
       include: {
         user: true,
+        lease: true,
       },
     });
 
-    return NextResponse.json(leases, { status: 200 });
+    return NextResponse.json(manageLeases, { status: 200 });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
@@ -28,48 +28,39 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const {
-    leaseStartDate,
-    leaseEndDate,
-    monthlyRentAmount,
-    securityDeposit,
-    additionalCharges,
-    userId,
-  } = await request.json();
+  const { userId, leaseId, assignmentDate, status } = await request.json();
 
-  const parsed = LeaseSchema.safeParse({
-    leaseStartDate,
-    leaseEndDate,
-    monthlyRentAmount,
-    securityDeposit,
-    additionalCharges,
+  const parsed = ManageLeaseSchema.safeParse({
     userId,
+    leaseId,
+    assignmentDate,
+    status,
   });
 
   if (!parsed.success) {
-    return NextResponse.json({ error: "Invalid input" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Invalid input", details: parsed.error.errors },
+      { status: 400 }
+    );
   }
 
   try {
-    // Check the user's session
     const session = await getServerSession(options);
 
     if (!session) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const lease = await prisma.lease.create({
+    const manageLease = await prisma.manageLease.create({
       data: {
-        leaseStartDate,
-        leaseEndDate,
-        monthlyRentAmount,
-        securityDeposit,
-        additionalCharges,
         userId,
+        leaseId,
+        assignmentDate: new Date(assignmentDate),
+        status,
       },
     });
 
-    return NextResponse.json(lease, { status: 201 });
+    return NextResponse.json(manageLease, { status: 201 });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });

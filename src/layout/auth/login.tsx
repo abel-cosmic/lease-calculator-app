@@ -15,7 +15,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { LoginSchema } from "@/util/schema/form/login";
+import { LoginSchema } from "@/util/schema/login";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import {

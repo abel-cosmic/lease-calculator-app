@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { FormSchema } from "@/util/schema/form/user";
+import { FormSchema } from "@/util/schema/user";
 import toast from "react-hot-toast";
 
 const EditUser = ({ userData }: { userData: z.infer<typeof FormSchema> }) => {

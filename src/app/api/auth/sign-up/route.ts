@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
-import { SignUpSchema } from "@/util/schema/form/sign-up";
+import { SignUpSchema } from "@/util/schema/sign-up";
 
 const prisma = new PrismaClient();
 
