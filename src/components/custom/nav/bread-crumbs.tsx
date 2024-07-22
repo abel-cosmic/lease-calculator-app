@@ -15,7 +15,7 @@ const Breadcrumbs = ({ path }) => {
   const pathParts = path.split("/").filter((part) => part);
 
   return (
-    <BreadcrumbList>
+    <BreadcrumbList className="pl-8">
       {pathParts.map((part, index) => {
         const href =
           "/" +

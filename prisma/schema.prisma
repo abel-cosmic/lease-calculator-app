@@ -1,0 +1,58 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider  = "postgresql"
+    url       = env("POSTGRES_PRISMA_URL")
+    directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model Admin {
+    id        Int      @id @default(autoincrement())
+    email     String   @unique
+    password  String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default(now())
+    users     User[]
+}
+
+model User {
+    id           Int           @id @default(autoincrement())
+    firstName    String
+    lastName     String
+    email        String        @unique
+    phone        String
+    createdAt    DateTime      @default(now())
+    updatedAt    DateTime      @default(now())
+    adminId      Int
+    admin        Admin         @relation(fields: [adminId], references: [id])
+    leases       Lease[]
+    manageLeases ManageLease[]
+}
+
+model Lease {
+    id                Int           @id @default(autoincrement())
+    leaseStartDate    String
+    leaseEndDate      String
+    monthlyRentAmount Int
+    securityDeposit   Int
+    additionalCharges Int
+    createdAt         DateTime      @default(now())
+    updatedAt         DateTime      @default(now())
+    userId            Int
+    user              User          @relation(fields: [userId], references: [id])
+    manageLeases      ManageLease[]
+}
+
+model ManageLease {
+    id             Int      @id @default(autoincrement())
+    userId         Int
+    leaseId        Int
+    assignmentDate DateTime
+    status         String   @default("active")
+    user           User     @relation(fields: [userId], references: [id])
+    lease          Lease    @relation(fields: [leaseId], references: [id])
+
+    @@unique([userId, leaseId])
+}
