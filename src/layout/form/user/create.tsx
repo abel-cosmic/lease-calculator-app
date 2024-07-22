@@ -101,20 +101,6 @@ const CreateUser = () => {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="address"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel>Address</FormLabel>
-                <FormControl>
-                  <Input placeholder="123 Main St" {...field} />
-                </FormControl>
-                <FormDescription>This is your address.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
           <Button type="submit" className="w-full">
             Submit
           </Button>

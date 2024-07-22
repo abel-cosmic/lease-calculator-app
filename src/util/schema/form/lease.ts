@@ -13,3 +13,12 @@ export const LeaseFormSchema = z.object({
     .min(0, "Additional charges must be at least 0")
     .optional(),
 });
+
+export const LeaseSchema = z.object({
+  leaseStartDate: z.string(), // Adjust validation as needed
+  leaseEndDate: z.string(),
+  monthlyRentAmount: z.number().int(),
+  securityDeposit: z.number().int(),
+  additionalCharges: z.number().int(),
+  userId: z.string().uuid(), // Ensure userId is a UUID or adjust based on your schema
+});
