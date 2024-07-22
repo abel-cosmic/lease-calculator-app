@@ -1,7 +1,7 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -26,6 +26,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import Link from "next/link";
 
 export function LoginForm() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -119,8 +120,14 @@ export function LoginForm() {
             />
             <CardFooter>
               <Button type="submit" className="w-full" disabled={isPending}>
-                {isPending ? "Signing in..." : "Sign In"}
+                {isPending ? <Loader2 className="animate-spin" /> : "Sign In"}
               </Button>
+              <div className="mt-4 text-center text-sm">
+                Dont Have an Account?
+                <Link href="/" className="underline">
+                  Sign Up
+                </Link>
+              </div>
             </CardFooter>
           </Form>
         </form>
