@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
-import { LeaseSchema } from "@/util/schema/form/lease";
+import { LeaseSchema } from "@/util/schema/lease";
 
 const prisma = new PrismaClient();
 

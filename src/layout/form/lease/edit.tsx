@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import toast from "react-hot-toast";
-import { LeaseFormSchema } from "@/util/schema/form/lease";
+import { LeaseFormSchema } from "@/util/schema/lease";
 
 const EditLease = ({
   leaseData,
