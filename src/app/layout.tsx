@@ -28,8 +28,8 @@ export default async function RootLayout({
   const session = await getServerSession(options);
   return (
     <html lang="en">
-      <AuthRedirect>
-        <NextAuthProvider session={session}>
+      <NextAuthProvider session={session}>
+        <AuthRedirect>
           <ReactQueryClientProvider>
             <ThemeProvider
               attribute="class"
@@ -44,8 +44,8 @@ export default async function RootLayout({
             </ThemeProvider>
             <Toaster position="bottom-right" reverseOrder={false} />
           </ReactQueryClientProvider>
-        </NextAuthProvider>
-      </AuthRedirect>
+        </AuthRedirect>
+      </NextAuthProvider>
     </html>
   );
 }
