@@ -9,7 +9,7 @@ import BarChartComponent from "@/components/custom/charts/bar";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import Breadcrumbs from "@/components/custom/nav/bread-crumbs";
 
-export default function Page() {
+export default function DashboardPage() {
   const data = [
     { month: "January", desktop: 186, mobile: 80 },
     { month: "February", desktop: 305, mobile: 200 },
