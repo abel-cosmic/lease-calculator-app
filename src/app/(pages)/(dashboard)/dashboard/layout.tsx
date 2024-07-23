@@ -13,7 +13,9 @@ export default async function RootLayout({
       <Sidebar />
       <section className="flex flex-col gap-2 pb-10 w-full h-screen ">
         <TopNav />
-        <ScrollArea className="h-fit w-full">{children}</ScrollArea>
+        <ScrollArea className="h-fit w-full max-md:p-8 md:p-12">
+          {children}
+        </ScrollArea>
       </section>
     </div>
   );
