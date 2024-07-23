@@ -21,13 +21,10 @@ import { useGetLeaseQuery, useUpdateLeaseMutation } from "@/hooks/lease";
 import { Loader2 } from "lucide-react";
 
 const EditLease = ({ id }: { id: string | string[] }) => {
-  const { data: leases, isLoading, error } = useGetLeaseQuery(id as string);
-
-  const lease = leases?.find((lease) => lease.id === id); // Find the specific lease
+  const { data: lease, isLoading, error } = useGetLeaseQuery(id as string);
   const { mutate: updateLease, isPending } = useUpdateLeaseMutation(
     id as string
   );
-  console.log(lease);
 
   const form = useForm<z.infer<typeof LeaseFormSchema>>({
     resolver: zodResolver(LeaseFormSchema),
