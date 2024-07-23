@@ -23,9 +23,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import toast from "react-hot-toast";
-import { SignUpSchema } from "@/util/schema/form/sign-up";
+import { SignUpSchema } from "@/util/schema/sign-up";
 import { useRouter } from "next/navigation";
-import { useSignUp } from "../../../hooks/admin-signup";
+import { useSignUp } from "../../hooks/admin-signup";
 
 const SignUpForm = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);

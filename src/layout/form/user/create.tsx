@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import toast from "react-hot-toast";
-import { FormSchema } from "@/util/schema/form/user";
+import { FormSchema } from "@/util/schema/user";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 const CreateUser = () => {
