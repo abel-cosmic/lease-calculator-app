@@ -1,10 +1,9 @@
 "use client";
-
 import Image from "next/image";
 import logo from "/public/logo-blue.png";
 import darklogo from "/public/logo-white.png";
-import { useTheme } from "next-themes";
 import SignUpForm from "@/layout/auth/sign-up";
+import { useTheme } from "next-themes";
 
 export default function SignUp() {
   const { theme } = useTheme();
