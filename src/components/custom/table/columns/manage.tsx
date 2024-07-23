@@ -5,7 +5,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ManageLeaseAction } from "../action/manage";
 
-export const manageColumns: ColumnDef<ManageLeaseStoreWithoutTimestamps>[] = [
+export const manageColumns: ColumnDef<ManageLeases>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -46,7 +46,7 @@ export const manageColumns: ColumnDef<ManageLeaseStoreWithoutTimestamps>[] = [
       const lease = row.original.lease;
       return (
         <div className="text-left font-medium">
-          {lease ? `$${lease.monthlyRentAmount.toFixed(2)}` : "N/A"}
+          {lease ? `$${lease.amount.toFixed(2)}` : "N/A"}
         </div>
       );
     },
