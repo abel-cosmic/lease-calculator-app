@@ -10,7 +10,7 @@ export const fetchUsers = async (): Promise<UserResponse> => {
 export const fetchUserById = async (
   id: string
 ): Promise<UserDetailResponse> => {
-  const response = await axios.get(`/api/user?id=${id}`);
+  const response = await axios.get(`/api/user/${id}`);
   return response.data;
 };
 export interface mutateUserResponse extends z.infer<typeof UserSchema> {}
