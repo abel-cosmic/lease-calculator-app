@@ -1,4 +1,4 @@
-interface ManageLease {
+interface ManageLeases {
   id: string;
   userId: string;
   leaseId: string;
@@ -8,8 +8,8 @@ interface ManageLease {
   updatedAt: string;
 }
 
-type ManageLeaseResponse = ManageLease[];
-type ManageLeaseDetailResponse = ManageLease;
-type CreateManageLeaseResponse = ManageLease;
-type UpdateManageLeaseResponse = ManageLease;
+type ManageLeaseResponse = ManageLeases[];
+type ManageLeaseDetailResponse = ManageLeases;
+type CreateManageLeaseResponse = ManageLeases;
+type UpdateManageLeaseResponse = ManageLeases;
 type DeleteManageLeaseResponse = { message: string };
