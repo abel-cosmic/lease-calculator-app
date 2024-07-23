@@ -34,12 +34,15 @@ const CreateLease = () => {
   } = useCreateLeaseMutation();
 
   const onSubmit = (data: z.infer<typeof LeaseFormSchema>) => {
+    //calculate the amount correctly for the lease amount set
+    const calculatedAmount =
+      data.monthlyRentAmount + data.securityDeposit + data.additionalCharges;
     const leaseData: LeaseWithoutTimestamps = {
-      leaseStartDate: data.leaseStartDate,
-      leaseEndDate: data.leaseEndDate,
-      monthlyRentAmount: data.monthlyRentAmount,
-      securityDeposit: data.securityDeposit,
-      additionalCharges: data.additionalCharges,
+      startDate: data.leaseStartDate,
+      endDate: data.leaseEndDate,
+      amount: calculatedAmount,
+      leaseName: "",
+      leaseType: "",
     };
 
     // createLease(leaseData, {

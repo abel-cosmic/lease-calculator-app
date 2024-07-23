@@ -3,7 +3,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sidebar } from "@/layout/nav/side-bar";
 import TopNav from "@/layout/nav/top";
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -13,7 +13,9 @@ export default async function RootLayout({
       <Sidebar />
       <section className="flex flex-col gap-2 pb-10 w-full h-screen ">
         <TopNav />
-        <ScrollArea className="h-fit w-full">{children}</ScrollArea>
+        <ScrollArea className="h-fit w-full md:p-8 max-md:p-4">
+          {children}
+        </ScrollArea>
       </section>
     </div>
   );

@@ -47,6 +47,7 @@ export function LoginForm() {
       ("use server");
       const result = await signIn("email", {
         redirect: false,
+        message: "Welcome to the lease calculator App",
         email: data.email,
         password: data.password,
       });
@@ -73,7 +74,7 @@ export function LoginForm() {
           Enter your email and password to login to your account.
         </CardDescription>
       </CardHeader>
-      <CardContent className="grid gap-4">
+      <CardContent className="grid gap-4 w-full">
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
           <Form {...form}>
             <FormField
@@ -118,16 +119,16 @@ export function LoginForm() {
                 </FormItem>
               )}
             />
-            <CardFooter>
-              <Button type="submit" className="w-full" disabled={isPending}>
-                {isPending ? <Loader2 className="animate-spin" /> : "Sign In"}
-              </Button>
+            <CardFooter className="flex flex-col gap-2 w-full !p-0">
               <div className="mt-4 text-center text-sm">
                 Dont Have an Account?
                 <Link href="/" className="underline">
                   Sign Up
                 </Link>
               </div>
+              <Button type="submit" className="w-full" disabled={isPending}>
+                {isPending ? <Loader2 className="animate-spin" /> : "Sign In"}
+              </Button>
             </CardFooter>
           </Form>
         </form>

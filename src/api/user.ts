@@ -8,14 +8,14 @@ export const fetchUsers = async (): Promise<UserResponse> => {
 export const fetchUserById = async (
   id: string
 ): Promise<UserDetailResponse> => {
-  const response = await axios.get(`/api/users?id=${id}`);
+  const response = await axios.get(`/api/user?id=${id}`);
   return response.data;
 };
 
 export const createUser = async (
   data: CreateUserResponse
 ): Promise<CreateUserResponse> => {
-  const response = await axios.post("/api/users", data);
+  const response = await axios.post("/api/user", data);
   return response.data;
 };
 
@@ -23,11 +23,11 @@ export const updateUser = async (
   id: string,
   data: UpdateUserResponse
 ): Promise<UpdateUserResponse> => {
-  const response = await axios.put(`/api/users?id=${id}`, data);
+  const response = await axios.put(`/api/user?id=${id}`, data);
   return response.data;
 };
 
 export const deleteUser = async (id: string): Promise<DeleteUserResponse> => {
-  const response = await axios.delete(`/api/users?id=${id}`);
+  const response = await axios.delete(`/api/user?id=${id}`);
   return response.data;
 };

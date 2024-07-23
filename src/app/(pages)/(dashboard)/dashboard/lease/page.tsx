@@ -18,6 +18,8 @@ export default function LeasePage() {
     }
   }, [leases, setEntity]);
 
+  console.log("data", entity);
+
   return (
     <aside className="flex flex-col w-full gap-4 max-md:pt-32 items-start">
       <Breadcrumbs path="Dashboard/Lease" />

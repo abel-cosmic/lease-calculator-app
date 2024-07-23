@@ -44,9 +44,7 @@ const SignUpForm = () => {
     mutate(data, {
       onSuccess: () => {
         toast.success("Successfully signed up!");
-        setTimeout(() => {
-          navigate.push("/login");
-        }, 2000);
+        navigate.push("/login");
       },
       onError: (error: any) => {
         toast.error(error.response?.data?.error || "An error occurred");

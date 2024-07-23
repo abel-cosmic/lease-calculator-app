@@ -31,10 +31,10 @@ export const manageColumns: ColumnDef<ManageLeases>[] = [
     accessorKey: "user",
     header: () => <div className="text-left">User</div>,
     cell: ({ row }) => {
-      const user = row.getValue("user") as PartialUser;
+      const user = row.original.user;
       return (
         <div className="text-left font-medium">
-          {user.firstName} {user.lastName}
+          {user ? `${user.firstName} ${user.lastName}` : "Unknown User"}
         </div>
       );
     },
@@ -43,10 +43,10 @@ export const manageColumns: ColumnDef<ManageLeases>[] = [
     accessorKey: "lease",
     header: () => <div className="text-left">Monthly Rent Amount</div>,
     cell: ({ row }) => {
-      const lease = row.getValue("lease") as PartialLease;
+      const lease = row.original.lease;
       return (
         <div className="text-left font-medium">
-          ${lease.monthlyRentAmount.toFixed(2)}
+          {lease ? `$${lease.monthlyRentAmount.toFixed(2)}` : "N/A"}
         </div>
       );
     },
@@ -55,7 +55,7 @@ export const manageColumns: ColumnDef<ManageLeases>[] = [
     accessorKey: "assignmentDate",
     header: () => <div className="text-left">Assignment Date</div>,
     cell: ({ row }) => {
-      const assignmentDate = row.getValue("assignmentDate") as Date;
+      const assignmentDate = new Date(row.original.assignmentDate);
       return (
         <div className="text-left font-medium">
           {assignmentDate.toLocaleDateString()}
@@ -67,10 +67,7 @@ export const manageColumns: ColumnDef<ManageLeases>[] = [
     accessorKey: "status",
     header: () => <div className="text-left">Status</div>,
     cell: ({ row }) => {
-      const status = row.getValue("status") as
-        | "active"
-        | "inactive"
-        | "terminated";
+      const status = row.original.status;
       let statusColor = "";
       switch (status) {
         case "active":

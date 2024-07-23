@@ -6,11 +6,13 @@ interface ManageLeases {
   status: string;
   createdAt: string;
   updatedAt: string;
+  user: User;
+  lease: Lease;
 }
 
 type ManageLeaseWithoutTimestamps = OmitFields<
   ManageLeases,
-  "createdAt" | "updatedAt" | "id"
+  "createdAt" | "updatedAt" | "id" | "user" | "lease"
 >;
 
 type ManageLeaseResponse = ManageLeases[];
