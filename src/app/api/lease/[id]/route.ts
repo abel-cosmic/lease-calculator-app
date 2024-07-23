@@ -31,25 +31,29 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   const { id } = params;
+  console.log(`Deleting lease with id: ${id}`);
 
   try {
     const lease = await prisma.lease.findUnique({
-      where: { id: id },
+      where: { id },
     });
 
     if (!lease) {
+      console.log(`Lease with id ${id} not found`);
       return NextResponse.json({ error: "Lease not found" }, { status: 404 });
     }
+
     await prisma.lease.delete({
-      where: { id: id },
+      where: { id },
     });
 
+    console.log(`Lease with id ${id} deleted successfully`);
     return NextResponse.json(
       { message: "Lease deleted successfully" },
       { status: 200 }
     );
   } catch (error) {
-    console.error(error);
+    console.error(`Error deleting lease with id ${id}:`, error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

@@ -3,7 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -15,27 +14,39 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import toast from "react-hot-toast";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { LeaseFormSchema } from "@/util/schema/lease";
-import { useCreateLeaseMutation } from "@/hooks/lease";
+import { useCreateManageLeaseMutation } from "@/hooks/manage";
+import { useGetUsersQuery } from "@/hooks/user";
 import { Loader2 } from "lucide-react";
+import { ManageLeaseSchema } from "@/util/schema/manage";
+import { useGetLeasesQuery } from "@/hooks/lease";
 
-const CreateLease = () => {
-  const form = useForm<z.infer<typeof LeaseFormSchema>>({
-    resolver: zodResolver(LeaseFormSchema),
+const ManageLeaseForm = () => {
+  const form = useForm<z.infer<typeof ManageLeaseSchema>>({
+    resolver: zodResolver(ManageLeaseSchema),
   });
-  const { mutate: createLease, isPending } = useCreateLeaseMutation();
+  const { mutate: createManageLease, isPending } =
+    useCreateManageLeaseMutation();
+  const { data: users } = useGetUsersQuery();
+  const { data: leases } = useGetLeasesQuery();
 
-  const onSubmit = (data: z.infer<typeof LeaseFormSchema>) => {
-    createLease(data, {
+  const onSubmit = (data: z.infer<typeof ManageLeaseSchema>) => {
+    createManageLease(data, {
       onSuccess: () => {
-        toast.success("Successfully created lease!");
+        toast.success("Successfully created manage lease!");
         form.reset();
       },
       onError: (error) => {
-        toast.error("Failed to create lease.");
-        console.error("Error creating lease:", error);
+        toast.error("Failed to create manage lease.");
+        console.error("Error creating manage lease:", error);
       },
     });
   };
@@ -45,19 +56,30 @@ const CreateLease = () => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full gap-6 flex flex-col mt-4"
+          className="w-full space-y-6"
         >
           <FormField
             control={form.control}
-            name="leaseStartDate"
+            name="userId"
             render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel>Lease Start Date</FormLabel>
-                <FormControl>
-                  <Input type="date" {...field} className="w-full" />
-                </FormControl>
+              <FormItem>
+                <FormLabel>User</FormLabel>
+                <Select onValueChange={field.onChange} value={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a user" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {users?.map((user) => (
+                      <SelectItem key={user.id} value={user.id}>
+                        {user.firstName} {user.lastName}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 <FormDescription>
-                  Enter the start date of the lease.
+                  Select the user for the lease.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -65,63 +87,62 @@ const CreateLease = () => {
           />
           <FormField
             control={form.control}
-            name="leaseEndDate"
+            name="leaseId"
             render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel>Lease End Date</FormLabel>
-                <FormControl>
-                  <Input type="date" {...field} className="w-full" />
-                </FormControl>
-                <FormDescription>
-                  Enter the end date of the lease.
-                </FormDescription>
+              <FormItem>
+                <FormLabel>Lease</FormLabel>
+                <Select onValueChange={field.onChange} value={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a lease" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {leases?.map((lease) => (
+                      <SelectItem key={lease.id} value={lease.id}>
+                        {lease.leaseStartDate} - {lease.leaseEndDate}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormDescription>Select the lease to manage.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
           <FormField
             control={form.control}
-            name="monthlyRentAmount"
+            name="assignmentDate"
             render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel>Monthly Rent Amount</FormLabel>
+              <FormItem>
+                <FormLabel>Assignment Date</FormLabel>
                 <FormControl>
-                  <Input step="0.01" {...field} className="w-full" />
+                  <Input type="date" {...field} />
                 </FormControl>
-                <FormDescription>
-                  Enter the monthly rent amount.
-                </FormDescription>
+                <FormDescription>Enter the assignment date.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
           <FormField
             control={form.control}
-            name="securityDeposit"
+            name="status"
             render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel>Security Deposit</FormLabel>
-                <FormControl>
-                  <Input step="0.01" {...field} className="w-full" />
-                </FormControl>
+              <FormItem>
+                <FormLabel>Status</FormLabel>
+                <Select onValueChange={field.onChange} value={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a status" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="active">Active</SelectItem>
+                    <SelectItem value="inactive">Inactive</SelectItem>
+                  </SelectContent>
+                </Select>
                 <FormDescription>
-                  Enter the security deposit amount.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="additionalCharges"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel>Additional Charges</FormLabel>
-                <FormControl>
-                  <Input step="0.01" {...field} className="w-full" />
-                </FormControl>
-                <FormDescription>
-                  Enter any additional charges (e.g., maintenance fees).
+                  Select the status of the lease management.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -136,4 +157,4 @@ const CreateLease = () => {
   );
 };
 
-export default CreateLease;
+export default ManageLeaseForm;

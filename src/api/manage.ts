@@ -1,4 +1,6 @@
+import { ManageLeaseSchema } from "@/util/schema/manage";
 import axios from "axios";
+import { z } from "zod";
 
 export const fetchManageLeases = async (): Promise<ManageLeaseResponse> => {
   const response = await axios.get("/api/manage");
@@ -12,17 +14,19 @@ export const fetchManageLeaseById = async (
   return response.data;
 };
 
+export interface mutateManageLeaseResponse
+  extends z.infer<typeof ManageLeaseSchema> {}
 export const createManageLease = async (
-  data: CreateManageLeaseResponse
-): Promise<CreateManageLeaseResponse> => {
+  data: mutateManageLeaseResponse
+): Promise<mutateManageLeaseResponse> => {
   const response = await axios.post("/api/manage", data);
   return response.data;
 };
 
 export const updateManageLease = async (
   id: string,
-  data: UpdateManageLeaseResponse
-): Promise<UpdateManageLeaseResponse> => {
+  data: mutateManageLeaseResponse
+): Promise<mutateManageLeaseResponse> => {
   const response = await axios.put(`/api/manage/${id}`, data);
   return response.data;
 };

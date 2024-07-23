@@ -40,12 +40,6 @@ export async function POST(request: Request) {
   }
 
   try {
-    const session = await getServerSession(options);
-
-    if (!session) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
     const manageLease = await prisma.manageLease.create({
       data: {
         userId,
