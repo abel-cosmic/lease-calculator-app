@@ -8,7 +8,7 @@ export const fetchManageLeases = async (): Promise<ManageLeaseResponse> => {
 export const fetchManageLeaseById = async (
   id: string
 ): Promise<ManageLeaseDetailResponse> => {
-  const response = await axios.get(`/api/manage?id=${id}`);
+  const response = await axios.get(`/api/manage/${id}`);
   return response.data;
 };
 
@@ -23,13 +23,13 @@ export const updateManageLease = async (
   id: string,
   data: UpdateManageLeaseResponse
 ): Promise<UpdateManageLeaseResponse> => {
-  const response = await axios.put(`/api/manage?id=${id}`, data);
+  const response = await axios.put(`/api/manage/${id}`, data);
   return response.data;
 };
 
 export const deleteManageLease = async (
   id: string
 ): Promise<DeleteManageLeaseResponse> => {
-  const response = await axios.delete(`/api/manage?id=${id}`);
+  const response = await axios.delete(`/api/manage/${id}`);
   return response.data;
 };

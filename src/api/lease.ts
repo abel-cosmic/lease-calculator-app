@@ -14,8 +14,8 @@ export const fetchLeases = async (): Promise<LeaseResponse> => {
 
 export const fetchLeaseById = async (
   id: string
-): Promise<LeaseDetailResponse[]> => {
-  const response = await axios.get(`/api/lease?id=${id}`);
+): Promise<LeaseDetailResponse> => {
+  const response = await axios.get(`/api/lease/${id}`);
   return response.data;
 };
 
@@ -37,6 +37,6 @@ export const updateLease = async (
 };
 
 export const deleteLease = async (id: string): Promise<DeleteLeaseResponse> => {
-  const response = await axios.delete(`/api/lease?id=${id}`);
+  const response = await axios.delete(`/api/lease/${id}`);
   return response.data;
 };

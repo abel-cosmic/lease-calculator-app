@@ -25,11 +25,11 @@ export const updateUser = async (
   id: string,
   data: mutateUserResponse
 ): Promise<mutateUserResponse> => {
-  const response = await axios.put(`/api/user?id=${id}`, data);
+  const response = await axios.put(`/api/user/${id}`, data);
   return response.data;
 };
 
 export const deleteUser = async (id: string): Promise<DeleteUserResponse> => {
-  const response = await axios.delete(`/api/user?id=${id}`);
+  const response = await axios.delete(`/api/user/${id}`);
   return response.data;
 };

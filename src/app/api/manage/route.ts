@@ -8,11 +8,6 @@ const prisma = new PrismaClient();
 
 export async function GET(request: Request) {
   try {
-    // const session = await getServerSession(options);
-
-    // if (!session) {
-    //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    // }
     const manageLeases = await prisma.manageLease.findMany({
       include: {
         user: true,

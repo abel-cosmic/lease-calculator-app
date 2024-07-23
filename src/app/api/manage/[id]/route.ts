@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
-import { getServerSession } from "next-auth/next";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { ManageLeaseSchema } from "@/util/schema/manage";
-// import { options } from "@/lib/db/auth";
 
 const prisma = new PrismaClient();
 
@@ -57,12 +55,6 @@ export async function PUT(
   }
 
   try {
-    // const session = await getServerSession(options);
-
-    // if (!session) {
-    //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    // }
-
     const manageLease = await prisma.manageLease.update({
       where: { id },
       data: {
@@ -89,7 +81,6 @@ export async function PUT(
   }
 }
 
-// DELETE manage lease by ID
 export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
@@ -97,12 +88,6 @@ export async function DELETE(
   const { id } = params;
 
   try {
-    // const session = await getServerSession(options);
-
-    // if (!session) {
-    //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    // }
-
     const manageLease = await prisma.manageLease.delete({
       where: { id },
     });
