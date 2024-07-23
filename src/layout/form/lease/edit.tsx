@@ -19,6 +19,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { LeaseFormSchema } from "@/util/schema/lease";
 import { useGetLeaseQuery, useUpdateLeaseMutation } from "@/hooks/lease";
 import { Loader2 } from "lucide-react";
+import LoadingElement from "@/components/custom/loaders";
 
 const EditLease = ({ id }: { id: string | string[] }) => {
   const { data: lease, isLoading, error } = useGetLeaseQuery(id as string);
@@ -50,7 +51,7 @@ const EditLease = ({ id }: { id: string | string[] }) => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingElement />;
   }
 
   if (error) {
