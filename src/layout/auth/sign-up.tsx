@@ -117,7 +117,7 @@ const SignUpForm = () => {
                         />
                         <button
                           type="button"
-                          className="absolute inset-y-0 right-0 top-6 px-3 flex items-center"
+                          className="absolute inset-y-0 right-0  px-3 flex items-center"
                           onClick={togglePasswordVisibility}
                         >
                           {passwordVisible ? (
