@@ -13,9 +13,22 @@ import {
 import { MoreHorizontal, Eye, Edit, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { useDeleteUserMutation } from "@/hooks/user";
 export const UserAction = ({ row }: { row: Row<any> }) => {
   const user = row.original;
   const router = useRouter();
+  const { mutate: deleteUser } = useDeleteUserMutation(user.id);
+
+  const handleDelete = () => {
+    deleteUser(null, {
+      onSuccess: () => {
+        toast.success("Lease deleted successfully");
+      },
+      onError: () => {
+        toast.error("Error deleting lease");
+      },
+    });
+  };
 
   return (
     <DropdownMenu>
@@ -40,11 +53,7 @@ export const UserAction = ({ row }: { row: Row<any> }) => {
           <Edit className="mr-2 h-4 w-4 text-green-500" />
           Edit
         </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => {
-            toast.success("deleted successfully");
-          }}
-        >
+        <DropdownMenuItem onClick={handleDelete}>
           <Trash className="mr-2 h-4 w-4 text-red-500" />
           Delete
         </DropdownMenuItem>
