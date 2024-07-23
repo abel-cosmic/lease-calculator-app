@@ -1,13 +1,16 @@
 interface User {
   id: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   createdAt: string;
   updatedAt: string;
 }
 
+type UserWithoutTimestamps = OmitFields<User, "createdAt" | "updatedAt" | "id">;
+
 type UserResponse = User[];
 type UserDetailResponse = User;
-type CreateUserResponse = User;
-type UpdateUserResponse = User;
+type CreateUserResponse = UserWithoutTimestamps;
+type UpdateUserResponse = UserWithoutTimestamps;
 type DeleteUserResponse = { message: string };

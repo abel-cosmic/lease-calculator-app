@@ -33,7 +33,7 @@ export const useUpdateLeaseMutation = (id: string) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationKey: ["Update Lease", id],
-    mutationFn: (data: Lease) => updateLease(id, data),
+    mutationFn: (data: Leases) => updateLease(id, data),
     onSuccess: () =>
       queryClient.invalidateQueries({ queryKey: ["Get Lease", id] }),
   });

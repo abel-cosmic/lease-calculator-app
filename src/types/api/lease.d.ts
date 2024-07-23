@@ -8,12 +8,9 @@ interface Leases {
   createdAt: string;
   updatedAt: string;
 }
-// Utility type to exclude specific fields
-type OmitFields<T, K extends keyof T> = Omit<T, K>;
 
-// Define types for creating and updating leases
 type LeaseWithoutTimestamps = OmitFields<
-  Lease,
+  Leases,
   "createdAt" | "updatedAt" | "id"
 >;
 

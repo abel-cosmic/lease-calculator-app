@@ -8,8 +8,13 @@ interface ManageLeases {
   updatedAt: string;
 }
 
+type ManageLeaseWithoutTimestamps = OmitFields<
+  ManageLeases,
+  "createdAt" | "updatedAt" | "id"
+>;
+
 type ManageLeaseResponse = ManageLeases[];
 type ManageLeaseDetailResponse = ManageLeases;
-type CreateManageLeaseResponse = ManageLeases;
-type UpdateManageLeaseResponse = ManageLeases;
+type CreateManageLeaseResponse = ManageLeaseWithoutTimestamps;
+type UpdateManageLeaseResponse = ManageLeaseWithoutTimestamps;
 type DeleteManageLeaseResponse = { message: string };

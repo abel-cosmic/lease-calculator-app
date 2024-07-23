@@ -9,3 +9,4 @@ interface EntityStore<T> {
   entity: T;
   setEntity: (entity: T) => void;
 }
+type OmitFields<T, K extends keyof T> = Omit<T, K>;

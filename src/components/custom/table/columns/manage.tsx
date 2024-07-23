@@ -5,7 +5,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ManageLeaseAction } from "../action/manage";
 
-export const manageColumns: ColumnDef<ManageLease>[] = [
+export const manageColumns: ColumnDef<ManageLeases>[] = [
   {
     id: "select",
     header: ({ table }) => (
