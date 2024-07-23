@@ -81,6 +81,7 @@ export async function PUT(
   }
 }
 
+// DELETE manage lease by ID
 export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }

@@ -34,14 +34,14 @@ const EditLease = ({ id }: { id: string | string[] }) => {
         monthlyRentAmount: lease.monthlyRentAmount.toString(),
         securityDeposit: lease.securityDeposit.toString(),
         additionalCharges: lease.additionalCharges.toString(),
-      } || {}, // Pre-fill form with existing lease data
+      } || {},
   });
 
   const onSubmit = (data: z.infer<typeof LeaseFormSchema>) => {
     updateLease(data, {
       onSuccess: () => {
         toast.success("Successfully updated lease!");
-        form.reset(data); // Reset form with updated data
+        form.reset(data);
       },
       onError: (error) => {
         toast.error("Failed to update lease.");

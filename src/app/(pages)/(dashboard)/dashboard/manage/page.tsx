@@ -4,7 +4,7 @@ import Breadcrumbs from "@/components/custom/nav/bread-crumbs";
 import { manageColumns } from "@/components/custom/table/columns/manage";
 import { DataTable } from "@/components/custom/table/data-table";
 import { useGetManageLeasesQuery } from "@/hooks/manage";
-import CreateLease from "@/layout/form/lease/create";
+import ManageLeaseForm from "@/layout/form/manage/create";
 import { useManageLeaseStore } from "@/util/store/manage";
 import { useEffect } from "react";
 
@@ -22,7 +22,7 @@ export default function ManagePage() {
       <DataTable
         columns={manageColumns}
         data={entity}
-        DialogContentComponent={<CreateLease />}
+        DialogContentComponent={<ManageLeaseForm />}
       />
     </aside>
   );

@@ -3,6 +3,7 @@ import {
   deleteManageLease,
   fetchManageLeaseById,
   fetchManageLeases,
+  mutateManageLeaseResponse,
   updateManageLease,
 } from "@/api/manage";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -33,7 +34,8 @@ export const useUpdateManageLeaseMutation = (id: string) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationKey: ["Update Manage Lease", id],
-    mutationFn: (data: ManageLeases) => updateManageLease(id, data),
+    mutationFn: (data: mutateManageLeaseResponse) =>
+      updateManageLease(id, data),
     onSuccess: () =>
       queryClient.invalidateQueries({ queryKey: ["Get Manage Lease", id] }),
   });
