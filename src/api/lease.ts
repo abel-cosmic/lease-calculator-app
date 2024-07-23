@@ -1,4 +1,6 @@
+import { LeaseFormSchema } from "@/util/schema/lease";
 import axios from "axios";
+import { z } from "zod";
 
 export const fetchLeases = async (): Promise<LeaseResponse> => {
   const response = await axios.get("/api/lease");
@@ -12,17 +14,19 @@ export const fetchLeaseById = async (
   return response.data;
 };
 
+export interface mutateLeaseResponse extends z.infer<typeof LeaseFormSchema> {}
+
 export const createLease = async (
-  data: CreateLeaseResponse
-): Promise<CreateLeaseResponse> => {
+  data: mutateLeaseResponse
+): Promise<mutateLeaseResponse> => {
   const response = await axios.post("/api/lease", data);
   return response.data;
 };
 
 export const updateLease = async (
   id: string,
-  data: UpdateLeaseResponse
-): Promise<UpdateLeaseResponse> => {
+  data: mutateLeaseResponse
+): Promise<mutateLeaseResponse> => {
   const response = await axios.put(`/api/lease?id=${id}`, data);
   return response.data;
 };

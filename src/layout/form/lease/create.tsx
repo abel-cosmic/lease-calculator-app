@@ -25,39 +25,23 @@ const CreateLease = () => {
   const form = useForm<z.infer<typeof LeaseFormSchema>>({
     resolver: zodResolver(LeaseFormSchema),
   });
-
-  const {
-    mutate: createLease,
-    isPending,
-    isError,
-    isSuccess,
-  } = useCreateLeaseMutation();
+  const { mutate: createLease, isPending } = useCreateLeaseMutation();
 
   const onSubmit = (data: z.infer<typeof LeaseFormSchema>) => {
-    //calculate the amount correctly for the lease amount set
-    const calculatedAmount =
-      data.monthlyRentAmount + data.securityDeposit + data.additionalCharges;
-    const leaseData: LeaseWithoutTimestamps = {
-      startDate: data.leaseStartDate,
-      endDate: data.leaseEndDate,
-      amount: calculatedAmount,
-      leaseName: "",
-      leaseType: "",
-    };
-
-    // createLease(leaseData, {
-    //   onSuccess: () => {
-    //     toast.success("Successfully created lease!");
-    //     form.reset(); // Optional: reset the form after success
-    //   },
-    //   onError: (error) => {
-    //     toast.error("Failed to create lease.");
-    //     console.error("Error creating lease:", error);
-    //   },
-    // });
+    console.log("Form Data:", data);
+    createLease(data, {
+      onSuccess: () => {
+        toast.success("Successfully created lease!");
+        form.reset();
+      },
+      onError: (error) => {
+        toast.error("Failed to create lease.");
+        console.error("Error creating lease:", error);
+      },
+    });
     toast((t) => (
       <div className="flex items-center">
-        <div>{JSON.stringify(leaseData, null, 2)}</div>
+        <div>{JSON.stringify(data, null, 2)}</div>
         <Button
           onClick={() => {
             form.reset();
