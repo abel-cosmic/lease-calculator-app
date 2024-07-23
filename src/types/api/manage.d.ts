@@ -7,7 +7,7 @@ interface ManageLeases {
   createdAt: string;
   updatedAt: string;
   user: User;
-  lease: Lease;
+  lease: Leases;
 }
 
 type ManageLeaseWithoutTimestamps = OmitFields<
