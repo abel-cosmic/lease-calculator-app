@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Bell, Settings } from "lucide-react";
+import { Bell, LogOut, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import sidebarItems from "@/util/objects/side-bar";
@@ -8,12 +8,14 @@ import Image from "next/image";
 import logo from "/public/logo-blue.png";
 import darklogo from "/public/logo-white.png";
 import { useTheme } from "next-themes";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 
 export function Sidebar() {
   const { theme } = useTheme();
   const pathname = usePathname();
   const currentLogo = theme === "dark" ? darklogo : logo;
+  const navigate = useRouter();
 
   return (
     <div className="hidden border-r max-w-xs bg-muted/40 md:block">
@@ -52,7 +54,7 @@ export function Sidebar() {
                     href={item.href}
                     className={`flex items-center gap-3 rounded-lg px-3 py-4 transition-all ease-linear ${
                       isActive
-                        ? "dark:bg-muted dark:text-primary bg-primary text-background"
+                        ? "dark:bg-white dark:text-black  bg-primary text-background"
                         : "text-muted-foreground hover:text-primary"
                     }`}
                   >
@@ -68,18 +70,32 @@ export function Sidebar() {
               }
             )}
           </nav>
-          <div className="grid items-start px-2s text-sm font-medium lg:px-4 w-full">
-            <Link
-              href="/dashboard/setting"
-              className={`flex items-center gap-3 rounded-lg px-3 py-4 transition-all ease-linear ${
-                pathname === "/dashboard/setting"
-                  ? "dark:bg-muted dark:text-primary bg-primary text-background"
-                  : "text-muted-foreground hover:text-primary"
-              }`}
-            >
-              <Settings className="h-4 w-4" />
-              Settings
-            </Link>
+          <div className="flex flex-col w-full">
+            <div className="grid items-start px-2s text-sm font-medium lg:px-4 w-full hover:cursor-pointer">
+              <div
+                className={`flex items-center gap-3 rounded-lg px-3 py-4 transition-all ease-linear text-muted-foreground hover:text-primary`}
+                onClick={() => {
+                  signOut();
+                  navigate.push("/");
+                }}
+              >
+                <LogOut className="h-4 w-4" />
+                Logout
+              </div>
+            </div>
+            <div className="grid items-start px-2s text-sm font-medium lg:px-4 w-full">
+              <Link
+                href="/dashboard/setting"
+                className={`flex items-center gap-3 rounded-lg px-3 py-4 transition-all ease-linear ${
+                  pathname === "/dashboard/setting"
+                    ? "dark:bg-white dark:text-black  bg-primary text-background"
+                    : "text-muted-foreground hover:text-primary"
+                }`}
+              >
+                <Settings className="h-4 w-4" />
+                Settings
+              </Link>
+            </div>
           </div>
         </div>
       </div>

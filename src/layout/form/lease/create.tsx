@@ -18,16 +18,57 @@ import { Input } from "@/components/ui/input";
 import toast from "react-hot-toast";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { LeaseFormSchema } from "@/util/schema/lease";
+import { useCreateLeaseMutation } from "@/hooks/lease";
+import { Loader2 } from "lucide-react";
 
 const CreateLease = () => {
   const form = useForm<z.infer<typeof LeaseFormSchema>>({
     resolver: zodResolver(LeaseFormSchema),
   });
 
-  function onSubmit(data: z.infer<typeof LeaseFormSchema>) {
-    toast.success("Successfully created lease!");
-    console.log(data);
-  }
+  const {
+    mutate: createLease,
+    isPending,
+    isError,
+    isSuccess,
+  } = useCreateLeaseMutation();
+
+  const onSubmit = (data: z.infer<typeof LeaseFormSchema>) => {
+    //calculate the amount correctly for the lease amount set
+    const calculatedAmount =
+      data.monthlyRentAmount + data.securityDeposit + data.additionalCharges;
+    const leaseData: LeaseWithoutTimestamps = {
+      startDate: data.leaseStartDate,
+      endDate: data.leaseEndDate,
+      amount: calculatedAmount,
+      leaseName: "",
+      leaseType: "",
+    };
+
+    // createLease(leaseData, {
+    //   onSuccess: () => {
+    //     toast.success("Successfully created lease!");
+    //     form.reset(); // Optional: reset the form after success
+    //   },
+    //   onError: (error) => {
+    //     toast.error("Failed to create lease.");
+    //     console.error("Error creating lease:", error);
+    //   },
+    // });
+    toast((t) => (
+      <div className="flex items-center">
+        <div>{JSON.stringify(leaseData, null, 2)}</div>
+        <Button
+          onClick={() => {
+            form.reset();
+          }}
+          className="ml-4"
+        >
+          Close
+        </Button>
+      </div>
+    ));
+  };
 
   return (
     <ScrollArea className="h-[35rem] w-full">
@@ -75,12 +116,7 @@ const CreateLease = () => {
               <FormItem className="w-full">
                 <FormLabel>Monthly Rent Amount</FormLabel>
                 <FormControl>
-                  <Input
-                    type="number"
-                    step="0.01"
-                    {...field}
-                    className="w-full"
-                  />
+                  <Input step="0.01" {...field} className="w-full" />
                 </FormControl>
                 <FormDescription>
                   Enter the monthly rent amount.
@@ -96,12 +132,7 @@ const CreateLease = () => {
               <FormItem className="w-full">
                 <FormLabel>Security Deposit</FormLabel>
                 <FormControl>
-                  <Input
-                    type="number"
-                    step="0.01"
-                    {...field}
-                    className="w-full"
-                  />
+                  <Input step="0.01" {...field} className="w-full" />
                 </FormControl>
                 <FormDescription>
                   Enter the security deposit amount.
@@ -117,12 +148,7 @@ const CreateLease = () => {
               <FormItem className="w-full">
                 <FormLabel>Additional Charges</FormLabel>
                 <FormControl>
-                  <Input
-                    type="number"
-                    step="0.01"
-                    {...field}
-                    className="w-full"
-                  />
+                  <Input step="0.01" {...field} className="w-full" />
                 </FormControl>
                 <FormDescription>
                   Enter any additional charges (e.g., maintenance fees).
@@ -131,12 +157,13 @@ const CreateLease = () => {
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full">
-            Submit
+          <Button type="submit" className="w-full" disabled={isPending}>
+            {isPending ? <Loader2 className="animate-spin" /> : "Submit"}
           </Button>
         </form>
       </Form>
     </ScrollArea>
   );
 };
+
 export default CreateLease;

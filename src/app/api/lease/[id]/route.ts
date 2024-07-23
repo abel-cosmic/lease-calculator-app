@@ -12,12 +12,12 @@ export async function GET(
   const { id } = params;
 
   try {
-    // Check the user's session
-    const session = await getServerSession(options);
+    // // Check the user's session
+    // const session = await getServerSession(options);
 
-    if (!session) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    // if (!session) {
+    //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    // }
 
     const lease = await prisma.lease.findUnique({
       where: { id },

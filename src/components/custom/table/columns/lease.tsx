@@ -7,7 +7,7 @@ import { ReactNode } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { LeaseAction } from "../action/lease";
 
-export const leaseColumns: ColumnDef<Lease>[] = [
+export const leaseColumns: ColumnDef<Leases>[] = [
   {
     id: "select",
     header: ({ table }) => (

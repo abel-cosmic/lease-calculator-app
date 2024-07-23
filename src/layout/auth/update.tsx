@@ -13,7 +13,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export function SecurityTabs() {
   return (
-    <Tabs defaultValue="account" className="w-[400px]">
+    <Tabs
+      defaultValue="account"
+      className="w-1/3 max-md:w-full max-md:mx-auto ml-10"
+    >
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="account">Account</TabsTrigger>
         <TabsTrigger value="password">Password</TabsTrigger>

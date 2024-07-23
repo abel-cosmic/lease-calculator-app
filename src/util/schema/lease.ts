@@ -15,10 +15,10 @@ export const LeaseFormSchema = z.object({
 });
 
 export const LeaseSchema = z.object({
-  leaseStartDate: z.string(), // Adjust validation as needed
+  leaseStartDate: z.string(),
   leaseEndDate: z.string(),
   monthlyRentAmount: z.number().int(),
   securityDeposit: z.number().int(),
   additionalCharges: z.number().int(),
-  userId: z.string().uuid(), // Ensure userId is a UUID or adjust based on your schema
+  userId: z.string().uuid(),
 });

@@ -18,8 +18,7 @@ export const options = {
     maxAge: 30 * 24 * 60 * 60,
   },
   pages: {
-    signIn: "/auth/signin",
-    verifyRequest: "/auth/verify-request",
+    signIn: "/auth/login",
   },
   callbacks: {
     async session({ session, user }) {

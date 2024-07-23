@@ -44,9 +44,7 @@ const SignUpForm = () => {
     mutate(data, {
       onSuccess: () => {
         toast.success("Successfully signed up!");
-        setTimeout(() => {
-          navigate.push("/login");
-        }, 2000);
+        navigate.push("/login");
       },
       onError: (error: any) => {
         toast.error(error.response?.data?.error || "An error occurred");
@@ -119,7 +117,7 @@ const SignUpForm = () => {
                         />
                         <button
                           type="button"
-                          className="absolute inset-y-0 right-0 top-6 px-3 flex items-center"
+                          className="absolute inset-y-0 right-0  px-3 flex items-center"
                           onClick={togglePasswordVisibility}
                         >
                           {passwordVisible ? (

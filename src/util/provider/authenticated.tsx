@@ -1,9 +1,9 @@
 "use client";
 
+import LoadingElement from "@/components/custom/loaders";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { ClipLoader } from "react-spinners";
 
 const AuthRedirect = ({ children }) => {
   const { data: session, status } = useSession();
@@ -20,7 +20,7 @@ const AuthRedirect = ({ children }) => {
   }, [session, status, router]);
 
   if (status === "loading") {
-    return <ClipLoader />; // Show a loader while checking session status
+    return <LoadingElement />; // Show a loader while checking session status
   }
 
   return <>{children}</>; // Render children if authentication check is complete
