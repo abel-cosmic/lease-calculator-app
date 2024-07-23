@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 import { getServerSession } from "next-auth/next";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { ManageLeaseSchema } from "@/util/schema/manage";
-import { options } from "@/lib/db/auth";
+// import { options } from "@/lib/db/auth";
 
 const prisma = new PrismaClient();
 
@@ -15,11 +15,11 @@ export async function GET(
   const { id } = params;
 
   try {
-    const session = await getServerSession(options);
+    // const session = await getServerSession(options);
 
-    if (!session) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    // if (!session) {
+    //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    // }
 
     const manageLease = await prisma.manageLease.findUnique({
       where: { id },
@@ -63,11 +63,11 @@ export async function PUT(
   }
 
   try {
-    const session = await getServerSession(options);
+    // const session = await getServerSession(options);
 
-    if (!session) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    // if (!session) {
+    //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    // }
 
     const manageLease = await prisma.manageLease.update({
       where: { id },
@@ -103,11 +103,11 @@ export async function DELETE(
   const { id } = params;
 
   try {
-    const session = await getServerSession(options);
+    // const session = await getServerSession(options);
 
-    if (!session) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    // if (!session) {
+    //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    // }
 
     const manageLease = await prisma.manageLease.delete({
       where: { id },

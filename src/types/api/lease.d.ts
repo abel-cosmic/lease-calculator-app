@@ -12,3 +12,8 @@ interface Leases {
 type LeaseResponse = Leases[];
 type LeaseDetailResponse = Leases;
 type DeleteLeaseResponse = { message: string };
+interface TotalRentResponse {
+  totalRent: number;
+  totalSecurityDeposit: number;
+  totalAdditionalCharges: number;
+}

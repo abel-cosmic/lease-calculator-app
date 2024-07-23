@@ -28,7 +28,6 @@ const CreateLease = () => {
   const { mutate: createLease, isPending } = useCreateLeaseMutation();
 
   const onSubmit = (data: z.infer<typeof LeaseFormSchema>) => {
-    console.log("Form Data:", data);
     createLease(data, {
       onSuccess: () => {
         toast.success("Successfully created lease!");
@@ -39,19 +38,6 @@ const CreateLease = () => {
         console.error("Error creating lease:", error);
       },
     });
-    toast((t) => (
-      <div className="flex items-center">
-        <div>{JSON.stringify(data, null, 2)}</div>
-        <Button
-          onClick={() => {
-            form.reset();
-          }}
-          className="ml-4"
-        >
-          Close
-        </Button>
-      </div>
-    ));
   };
 
   return (
@@ -142,7 +128,7 @@ const CreateLease = () => {
             )}
           />
           <Button type="submit" className="w-full" disabled={isPending}>
-            {isPending ? <Loader2 className="animate-spin" /> : "Submit"}
+            {isPending ? <Loader2 className="animate-spin" /> : "Create"}
           </Button>
         </form>
       </Form>
