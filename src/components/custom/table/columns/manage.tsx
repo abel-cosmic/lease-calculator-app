@@ -39,26 +39,13 @@ export const manageColumns: ColumnDef<ManageLeases>[] = [
       );
     },
   },
-  // {
-  //   accessorKey: "lease",
-  //   header: () => <div className="text-left">Monthly Rent Amount</div>,
-  //   cell: ({ row }) => {
-  //     const lease = row.original.lease;
-  //     return (
-  //       <div className="text-left font-medium">
-  //         {lease ? `$${lease.amount.toFixed(2)}` : "N/A"}
-  //       </div>
-  //     );
-  //   },
-  // },
   {
     accessorKey: "assignmentDate",
     header: () => <div className="text-left">Assignment Date</div>,
     cell: ({ row }) => {
-      const assignmentDate = new Date(row.original.assignmentDate);
       return (
         <div className="text-left font-medium">
-          {assignmentDate.toLocaleDateString()}
+          {row.original.assignmentDate}
         </div>
       );
     },
