@@ -49,7 +49,9 @@ export function DataTable<TData, TValue>({
             <DialogTrigger className="self-end">
               <Button>Create</Button>
             </DialogTrigger>
-            <DialogContent>{DialogContentComponent}</DialogContent>
+            <DialogContent className="p-4 px-8">
+              {DialogContentComponent}
+            </DialogContent>
           </Dialog>
           <DataTableViewOptions table={table} />
         </div>

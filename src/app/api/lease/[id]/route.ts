@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
-import { getServerSession } from "next-auth/next";
-import { options } from "@/lib/db/auth";
+import { LeaseFormSchema } from "@/util/schema/lease"; // Ensure this import path is correct
 
 const prisma = new PrismaClient();
 
@@ -12,18 +11,8 @@ export async function GET(
   const { id } = params;
 
   try {
-    // // Check the user's session
-    // const session = await getServerSession(options);
-
-    // if (!session) {
-    //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    // }
-
     const lease = await prisma.lease.findUnique({
-      where: { id },
-      include: {
-        user: true,
-      },
+      where: { id: id },
     });
 
     if (!lease) {
@@ -44,25 +33,15 @@ export async function DELETE(
   const { id } = params;
 
   try {
-    // Check the user's session
-    const session = await getServerSession(options);
-
-    if (!session) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    // Check if the lease exists
     const lease = await prisma.lease.findUnique({
-      where: { id },
+      where: { id: id },
     });
 
     if (!lease) {
       return NextResponse.json({ error: "Lease not found" }, { status: 404 });
     }
-
-    // Delete the lease
     await prisma.lease.delete({
-      where: { id },
+      where: { id: id },
     });
 
     return NextResponse.json(
@@ -72,5 +51,59 @@ export async function DELETE(
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
+  }
+}
+
+// Add PATCH method for updating lease
+export async function PATCH(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  const { id } = params;
+  const {
+    leaseStartDate,
+    leaseEndDate,
+    monthlyRentAmount,
+    securityDeposit,
+    additionalCharges,
+  } = await request.json();
+  if (!id) {
+    return NextResponse.json(
+      { error: "Lease ID is required" },
+      { status: 400 }
+    );
+  }
+
+  const parsed = LeaseFormSchema.safeParse({
+    leaseStartDate,
+    leaseEndDate,
+    monthlyRentAmount,
+    securityDeposit,
+    additionalCharges,
+  });
+
+  if (!parsed.success) {
+    return NextResponse.json({ error: "Invalid input" }, { status: 400 });
+  }
+
+  try {
+    const lease = await prisma.lease.update({
+      where: { id: id },
+      data: {
+        leaseStartDate,
+        leaseEndDate,
+        monthlyRentAmount,
+        securityDeposit,
+        additionalCharges,
+      },
+    });
+
+    return NextResponse.json(lease, { status: 200 });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { error: "Failed to update lease" },
+      { status: 500 }
+    );
   }
 }

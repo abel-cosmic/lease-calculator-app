@@ -1,19 +1,11 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
-import { getServerSession } from "next-auth/next";
-import { options } from "@/lib/db/auth";
 import { UserSchema } from "@/util/schema/user";
 
 const prisma = new PrismaClient();
 
 export async function GET(request: Request) {
   try {
-    const session = await getServerSession(options);
-
-    if (!session) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
     const users = await prisma.user.findMany({
       include: {
         admin: true,
@@ -28,14 +20,13 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const { firstName, lastName, email, phone, adminId } = await request.json();
-
+  const { firstName, lastName, email, phone } = await request.json();
   const parsed = UserSchema.safeParse({
     firstName,
     lastName,
     email,
     phone,
-    adminId,
+    adminId: "1",
   });
 
   if (!parsed.success) {
@@ -43,19 +34,13 @@ export async function POST(request: Request) {
   }
 
   try {
-    const session = await getServerSession(options);
-
-    if (!session) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
     const user = await prisma.user.create({
       data: {
         firstName,
         lastName,
         email,
         phone,
-        adminId,
+        adminId: "clyy14kdl0001144i39d4j0k1",
       },
     });
 

@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-    provider  = "postgresql"
-    url       = env("POSTGRES_URL")
+    provider = "postgresql"
+    url      = env("POSTGRES_URL")
     // directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
@@ -68,9 +68,8 @@ model User {
     phone        String
     createdAt    DateTime      @default(now()) @map("created_at")
     updatedAt    DateTime      @updatedAt @map("updated_at")
-    adminId      String
-    admin        Admin         @relation(fields: [adminId], references: [id])
-    leases       Lease[]
+    adminId      String?
+    admin        Admin?        @relation(fields: [adminId], references: [id])
     manageLeases ManageLease[]
 }
 
@@ -78,13 +77,11 @@ model Lease {
     id                String        @id @default(cuid())
     leaseStartDate    String
     leaseEndDate      String
-    monthlyRentAmount Int
-    securityDeposit   Int
-    additionalCharges Int
+    monthlyRentAmount String
+    securityDeposit   String
+    additionalCharges String
     createdAt         DateTime      @default(now()) @map("created_at")
     updatedAt         DateTime      @updatedAt @map("updated_at")
-    userId            String
-    user              User          @relation(fields: [userId], references: [id])
     manageLeases      ManageLease[]
 }
 

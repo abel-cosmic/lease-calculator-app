@@ -1,33 +1,26 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
-import { getServerSession } from "next-auth/next";
-import { options } from "@/lib/db/auth";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { ManageLeaseSchema } from "@/util/schema/manage";
 
 const prisma = new PrismaClient();
 
+// GET manage lease by ID
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   const { id } = params;
-  try {
-    // const session = await getServerSession(options);
 
-    // if (!session) {
-    //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    // }
+  try {
     const manageLease = await prisma.manageLease.findUnique({
       where: { id },
-      include: {
-        user: true,
-        lease: true,
-      },
+      include: { user: true, lease: true },
     });
 
     if (!manageLease) {
       return NextResponse.json(
-        { error: "Manage lease not found" },
+        { error: "ManageLease not found" },
         { status: 404 }
       );
     }
@@ -39,6 +32,7 @@ export async function GET(
   }
 }
 
+// PUT update manage lease by ID
 export async function PUT(
   request: NextRequest,
   { params }: { params: { id: string } }
@@ -61,12 +55,6 @@ export async function PUT(
   }
 
   try {
-    const session = await getServerSession(options);
-
-    if (!session) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
     const manageLease = await prisma.manageLease.update({
       where: { id },
       data: {
@@ -80,6 +68,15 @@ export async function PUT(
     return NextResponse.json(manageLease, { status: 200 });
   } catch (error) {
     console.error(error);
+    if (
+      error instanceof PrismaClientKnownRequestError &&
+      error.code === "P2025"
+    ) {
+      return NextResponse.json(
+        { error: "ManageLease not found" },
+        { status: 404 }
+      );
+    }
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
@@ -89,13 +86,8 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   const { id } = params;
+
   try {
-    const session = await getServerSession(options);
-
-    if (!session) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
     const manageLease = await prisma.manageLease.delete({
       where: { id },
     });
@@ -103,6 +95,15 @@ export async function DELETE(
     return NextResponse.json(manageLease, { status: 200 });
   } catch (error) {
     console.error(error);
+    if (
+      error instanceof PrismaClientKnownRequestError &&
+      error.code === "P2025"
+    ) {
+      return NextResponse.json(
+        { error: "ManageLease not found" },
+        { status: 404 }
+      );
+    }
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

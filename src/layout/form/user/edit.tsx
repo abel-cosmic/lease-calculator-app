@@ -16,16 +16,16 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { FormSchema } from "@/util/schema/user";
 import toast from "react-hot-toast";
+import { UserSchema } from "@/util/schema/user";
 
-const EditUser = ({ userData }: { userData: z.infer<typeof FormSchema> }) => {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
+const EditUser = ({ userData }: { userData: z.infer<typeof UserSchema> }) => {
+  const form = useForm<z.infer<typeof UserSchema>>({
+    resolver: zodResolver(UserSchema),
     defaultValues: userData,
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  function onSubmit(data: z.infer<typeof UserSchema>) {
     // Perform the update operation here
     toast.success("User updated successfully!");
   }
@@ -86,7 +86,7 @@ const EditUser = ({ userData }: { userData: z.infer<typeof FormSchema> }) => {
           />
           <FormField
             control={form.control}
-            name="phoneNumber"
+            name="phone"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Phone Number</FormLabel>

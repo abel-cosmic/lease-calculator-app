@@ -24,7 +24,7 @@ const UserProfileHoverCard = ({
           </Avatar>
         </Button>
       </HoverCardTrigger>
-      <HoverCardContent className="w-80">
+      <HoverCardContent className="w-fit">
         <div className="flex justify-between space-x-4">
           <Avatar>
             <AvatarFallback>VC</AvatarFallback>

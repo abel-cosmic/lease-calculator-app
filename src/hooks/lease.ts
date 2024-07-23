@@ -3,6 +3,7 @@ import {
   deleteLease,
   fetchLeaseById,
   fetchLeases,
+  mutateLeaseResponse,
   updateLease,
 } from "@/api/lease";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -33,7 +34,7 @@ export const useUpdateLeaseMutation = (id: string) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationKey: ["Update Lease", id],
-    mutationFn: (data: Leases) => updateLease(id, data),
+    mutationFn: (data: mutateLeaseResponse) => updateLease(id, data),
     onSuccess: () =>
       queryClient.invalidateQueries({ queryKey: ["Get Lease", id] }),
   });

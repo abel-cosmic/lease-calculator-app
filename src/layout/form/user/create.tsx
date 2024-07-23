@@ -16,16 +16,28 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import toast from "react-hot-toast";
-import { FormSchema } from "@/util/schema/user";
+import { UserSchema } from "@/util/schema/user";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useCreateUserMutation } from "@/hooks/user";
+import { Loader2 } from "lucide-react";
 
 const CreateUser = () => {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
+  const { mutate: createUser, isPending } = useCreateUserMutation();
+  const form = useForm<z.infer<typeof UserSchema>>({
+    resolver: zodResolver(UserSchema),
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast.success("Successfully created!");
+  function onSubmit(data: z.infer<typeof UserSchema>) {
+    createUser(data, {
+      onSuccess: () => {
+        toast.success("User created successfully");
+        form.reset();
+      },
+      onError: (error) => {
+        toast.error("Failed to create user");
+        console.error("Error creating user:", error);
+      },
+    });
   }
 
   return (
@@ -84,7 +96,7 @@ const CreateUser = () => {
           />
           <FormField
             control={form.control}
-            name="phoneNumber"
+            name="phone"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Phone Number</FormLabel>
@@ -101,8 +113,8 @@ const CreateUser = () => {
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full">
-            Submit
+          <Button type="submit" className="w-full" disabled={isPending}>
+            {isPending ? <Loader2 className="animate-spin" /> : "Create"}
           </Button>
         </form>
       </Form>
