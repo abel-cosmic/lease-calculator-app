@@ -38,7 +38,6 @@ export const useUpdateLeaseMutation = (id: string) => {
       queryClient.invalidateQueries({ queryKey: ["Get Lease", id] }),
   });
 };
-
 export const useDeleteLeaseMutation = (id: string) => {
   const queryClient = useQueryClient();
   return useMutation({

@@ -13,6 +13,7 @@ export const useGetUsersQuery = () =>
     queryFn: fetchUsers,
   });
 
+
 export const useGetUserQuery = (id: string) =>
   useQuery({
     queryKey: ["Get User", id],
